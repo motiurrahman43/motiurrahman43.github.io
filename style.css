@@ -163,3 +163,12 @@
 
 /* Interactive professional toolkit */
 .skills-grid{align-items:stretch}.skill-card{display:flex;flex-direction:column;min-height:210px;padding:25px 26px}.skill-card h3{font-size:16px;line-height:1.4;margin:4px 0 9px}.skill-card>p{font-size:13px;line-height:1.7;color:#a9bfd5;min-height:44px}.skill-toggle{display:flex;justify-content:space-between;align-items:center;width:100%;margin-top:auto;padding:13px 0 0;border:0;border-top:1px solid var(--line);background:none;color:var(--cyan);font:600 12px var(--font);text-align:left;cursor:pointer}.skill-toggle span{font-size:18px;transition:transform .2s}.skill-card.expanded{border-color:#38caff99;background:#0c2949}.skill-card.expanded .skill-toggle span{transform:rotate(45deg)}.skill-detail{padding-top:10px}.skill-detail ul{padding-left:18px;margin:4px 0 0}.skill-detail li{font-size:13px;line-height:1.75;color:#c0d2e3;margin:6px 0}.skill-toggle:focus-visible{outline:2px solid var(--cyan);outline-offset:4px;border-radius:3px}@media(max-width:700px){.skills-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.skill-card{padding:20px;min-height:205px}.skill-card>p{font-size:12px}.skill-detail li{font-size:12px}}@media(max-width:480px){.skills-grid{grid-template-columns:1fr}.skill-card{min-height:0}}
+
+/* Training and professional development */
+.training-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:34px}
+.training-card{background:var(--card, #0b2340);border:1px solid var(--line, #204363);border-radius:10px;padding:22px;min-height:150px}
+.training-card span{font-size:10px;letter-spacing:.12em;color:var(--cyan);font-weight:700}
+.training-card h3{font-size:16px;line-height:1.45;margin:12px 0 8px;color:var(--text, #eef5ff)}
+.training-card p{font-size:13px;line-height:1.65;color:var(--muted, #a9bfd5);margin:0}
+@media(max-width:850px){.training-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.training-grid{grid-template-columns:1fr}.training-card{min-height:0}}
