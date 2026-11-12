@@ -17,3 +17,149 @@ function closeModal(){modal.classList.remove('open');modal.setAttribute('aria-hi
 document.querySelectorAll('[data-modal]').forEach(el=>el.addEventListener('click',()=>openModal(el.dataset.modal)));
 modal.querySelectorAll('[data-close]').forEach(el=>el.addEventListener('click',closeModal));
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+
+// ===================================
+// GEOSPATIAL PROJECT PHOTO GALLERIES
+// ===================================
+
+const projectPhotos = {
+  gis: [
+    "assets/projects/gis/photo-01.jpg",
+    "assets/projects/gis/photo-02.jpg",
+    "assets/projects/gis/photo-03.jpg"
+  ],
+
+  uav: [
+    "assets/projects/uav/photo-01.jpg",
+    "assets/projects/uav/photo-02.jpg",
+    "assets/projects/uav/photo-03.jpg"
+  ],
+
+  photogrammetry: [
+    "assets/projects/photogrammetry/photo-01.jpg",
+    "assets/projects/photogrammetry/photo-02.jpg",
+    "assets/projects/photogrammetry/photo-03.jpg",
+    "assets/projects/photogrammetry/photo-04.jpg"
+  ],
+
+  rtk: [
+    "assets/projects/rtk-gnss/photo-01.jpg",
+    "assets/projects/rtk-gnss/photo-02.jpg",
+    "assets/projects/rtk-gnss/photo-03.jpg"
+  ]
+};
+
+// Create full-screen viewer
+const lightbox = document.createElement("div");
+lightbox.className = "photo-lightbox";
+
+lightbox.innerHTML = `
+  <button class="lightbox-close" aria-label="Close">✕</button>
+  <button class="lightbox-prev" aria-label="Previous">❮</button>
+  <img src="" alt="Project photograph">
+  <button class="lightbox-next" aria-label="Next">❯</button>
+`;
+
+document.body.appendChild(lightbox);
+
+const viewerImage = lightbox.querySelector("img");
+
+let currentPhotos = [];
+let currentIndex = 0;
+
+function showPhoto(index) {
+  if (!currentPhotos.length) return;
+
+  currentIndex =
+    (index + currentPhotos.length) % currentPhotos.length;
+
+  viewerImage.src = currentPhotos[currentIndex];
+}
+
+function openGallery(photos, index = 0) {
+  currentPhotos = photos;
+  showPhoto(index);
+  lightbox.classList.add("active");
+}
+
+function closeGallery() {
+  lightbox.classList.remove("active");
+}
+
+lightbox.querySelector(".lightbox-close")
+  .addEventListener("click", closeGallery);
+
+lightbox.querySelector(".lightbox-prev")
+  .addEventListener("click", () =>
+    showPhoto(currentIndex - 1)
+  );
+
+lightbox.querySelector(".lightbox-next")
+  .addEventListener("click", () =>
+    showPhoto(currentIndex + 1)
+  );
+
+lightbox.addEventListener("click", event => {
+  if (event.target === lightbox) closeGallery();
+});
+
+document.addEventListener("keydown", event => {
+  if (!lightbox.classList.contains("active")) return;
+
+  if (event.key === "Escape") closeGallery();
+  if (event.key === "ArrowRight") showPhoto(currentIndex + 1);
+  if (event.key === "ArrowLeft") showPhoto(currentIndex - 1);
+});
+
+// Automatic slideshow in every project card
+document.querySelectorAll(".project-slider").forEach(slider => {
+
+  const galleryName = slider.dataset.gallery;
+  const photos = projectPhotos[galleryName];
+
+  if (!photos || !photos.length) return;
+
+  let index = 0;
+  let paused = false;
+
+  const img = slider.querySelector("img");
+
+  const counter = slider.querySelector(".photo-count");
+
+  if (counter) {
+    counter.textContent = `01 / ${String(photos.length).padStart(2, "0")}`;
+  }
+
+  function updatePhoto() {
+    if (paused || lightbox.classList.contains("active")) return;
+
+    index = (index + 1) % photos.length;
+
+    img.style.opacity = "0";
+
+    setTimeout(() => {
+      img.src = photos[index];
+      img.style.opacity = "1";
+
+      if (counter) {
+        counter.textContent =
+          `${String(index + 1).padStart(2, "0")} / ${String(photos.length).padStart(2, "0")}`;
+      }
+    }, 250);
+  }
+
+  const timer = setInterval(updatePhoto, 5000);
+
+  slider.addEventListener("mouseenter", () => paused = true);
+  slider.addEventListener("mouseleave", () => paused = false);
+
+  slider.addEventListener("click", () => {
+    openGallery(photos, index);
+  });
+
+  // Preload photos
+  photos.forEach(src => {
+    const image = new Image();
+    image.src = src;
+  });
+});
