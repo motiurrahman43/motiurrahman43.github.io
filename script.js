@@ -102,3 +102,17 @@ document.addEventListener("keydown",event=>{
     if(event.key==="ArrowLeft") showPhoto(currentIndex-1);
   }
 });
+
+// Expandable toolkit capability cards
+ document.querySelectorAll('.skill-toggle').forEach(button=>{
+   button.addEventListener('click',()=>{
+     const card=button.closest('.skill-card');
+     const detail=card.querySelector('.skill-detail');
+     const expanded=button.getAttribute('aria-expanded')==='true';
+     button.setAttribute('aria-expanded',String(!expanded));
+     detail.hidden=expanded;
+     card.classList.toggle('expanded',!expanded);
+     button.querySelector('span').textContent=expanded?'＋':'−';
+     button.firstChild.textContent=expanded?'Explore capabilities ':'Hide capabilities ';
+   });
+ });
