@@ -397,3 +397,35 @@ img, video, iframe {
   .hero { padding-left: 18px !important; padding-right: 18px !important; }
   .hero h1 { font-size: 30px !important; letter-spacing: -1px !important; }
 }
+
+
+/* Keep the portrait visible near the top of the mobile hero */
+@media screen and (max-width: 600px) {
+  .hero-inner {
+    grid-template-rows: auto auto !important;
+    gap: 26px !important;
+  }
+  .hero-profile-wrap {
+    grid-row: 1 !important;
+    justify-self: center !important;
+    display: grid !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    width: clamp(150px, 42vw, 178px) !important;
+    height: auto !important;
+    aspect-ratio: 1 / 1 !important;
+    margin: 0 auto !important;
+    overflow: visible !important;
+  }
+  .hero-profile {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    width: 82% !important;
+    height: 82% !important;
+    object-fit: cover !important;
+  }
+  .hero-copy {
+    grid-row: 2 !important;
+  }
+}
