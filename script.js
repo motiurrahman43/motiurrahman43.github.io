@@ -24,7 +24,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
 // ===================================
 const projectPhotos = {
   gis: ["assets/gis/photo-01.png","assets/gis/photo-02.png","assets/gis/photo-03.jpeg"],
-  uav: ["assets/uav/photo-01.jpg","assets/uav/photo-02.jpeg"],
+  uav: ["assets/uav/photo-01.jpg","assets/uav/IMG-20250429-WA0034.jpg"],
   photogrammetry: ["assets/photogrammetry/photo-01.jpg","assets/photogrammetry/photo-02.jpg","assets/photogrammetry/photo-03.jpg","assets/photogrammetry/photo-04.jpg"],
   rtk: ["assets/rtk-gnss/photo-01.jpeg","assets/rtk-gnss/photo-02.jpeg"]
 };
